@@ -15,18 +15,21 @@ env = rlSimulinkEnv('Crawler_Simscape','Crawler_Simscape/RL Agent',...
     obsInfo,actInfo);
 
 w0=[0, 0, 0, 0]';
+w0a=[0, 0, 0, 0; 0, 0, 0, 0; 0, 0, 0, 0; 0, 0, 0, 0];
 critic = rlRepresentation(@linFeatures, w0, obsInfo);
-actor = rlRepresentation(@linFeatures, w0, obsInfo, actInfo);
+actor = rlRepresentation(@linFeatures, w0a, obsInfo, actInfo);
 
 
 agentOpts = rlACAgentOptions;
+agentOpts.NumStepsToLookAhead = 8;
+
 agent = rlACAgent(actor, critic, agentOpts)
 
 trainOpts = rlTrainingOptions;
-%trainOpts.MaxStepsPerEpisode = 50000;
-%trainOpts.MaxEpisodes= 5;
+trainOpts.MaxStepsPerEpisode = 50;
+trainOpts.MaxEpisodes= 500;
 trainOpts.StopTrainingCriteria = "AverageReward";
-trainOpts.StopTrainingValue = 2500;
+trainOpts.StopTrainingValue = 2;
 trainOpts.ScoreAveragingWindowLength = 30;
 
-trainingStats = train(qAgent,env,trainOpts);
+trainingStats = train(agent,env,trainOpts);
