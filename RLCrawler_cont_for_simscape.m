@@ -21,7 +21,7 @@ actor = rlRepresentation(@linFeatures, w0a, obsInfo, actInfo);
 
 
 agentOpts = rlACAgentOptions;
-agentOpts.NumStepsToLookAhead = 8;
+% agentOpts.NumStepsToLookAhead = 8;
 
 agent = rlACAgent(actor, critic, agentOpts)
 
