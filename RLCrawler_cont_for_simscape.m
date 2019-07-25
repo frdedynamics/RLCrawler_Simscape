@@ -33,10 +33,12 @@ repOpts = rlRepresentationOptions('LearnRate',0.1); %5e-5
 critic = rlRepresentation(@linFeatures, w0, obsInfo, repOpts);
 actor = rlRepresentation(@linFeatures, w0a, obsInfo, actInfo,repOpts);
 
+
 agentOpts = rlACAgentOptions(...
     'SampleTime',Ts,...
     'EntropyLossWeight', 1);%,...
     %'NumStepsToLookAhead', 1);
+
 
 agent = rlACAgent(actor, critic, agentOpts)
 validateEnvironment(env)
